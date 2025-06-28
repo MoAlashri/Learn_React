@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Pizza from "./Pizza";
 
-const intl = new Intl.NumberFormat("en-Us", {
+const intl = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 })
@@ -17,6 +17,7 @@ export default function Order() {
 
   if(!loading){
     selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id)
+    price = intl.format(selectedPizza.sizes[pizzaSize])
   }
   async function fetchPizzaTypes() {
     const pizzaRes = await fetch("/api/pizzas")
@@ -91,11 +92,11 @@ export default function Order() {
           <button type="submit">Add to Cart</button>
           <div className="order-pizaa">
             <Pizza 
-            name = "pepperoni"
-            description = "A classic pizza with pepperoni slices and cheese."
-            image = "/public/pizzas/pepperoni.webp"
+            name = {selectedPizza?.name || "Loading..."}
+            description = {selectedPizza?.description || "Loading..."}
+            image = {selectedPizza?.image || "Loading..."}
             />
-            <p>$13.37</p>
+            <p>{price}</p>
           </div>
         </div>
       </form>
