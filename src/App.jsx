@@ -1,20 +1,26 @@
 
 // delete the React import
-import { StrictMode } from "react";
+import { StrictMode , useState } from "react";
 import { createRoot } from "react-dom/client";
 import Order from "./Order";
 import PizzaOfTheDay from "./pizzaOfTheDay";
+import Header from "./Header";
+import { CartContext } from "./contexts";
 
 // delete the Pizza component
 
 const App = () => {
+  
+  const cartHook = useState([]);
   return (
     <StrictMode>
-      <div>
-        <h1>Padre Gino's Pizza – Order Now</h1>
+     <CartContext.Provider value={cartHook}>
+       <div>
+        <Header/>
         <Order />
         <PizzaOfTheDay/>
-      </div>
+       </div>
+     </CartContext.Provider>
     </StrictMode>
   );
 };
